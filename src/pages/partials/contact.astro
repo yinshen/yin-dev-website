@@ -8,14 +8,14 @@ const isPost = Astro.request.method === 'POST'
 if (isPost) {
     try {
         const data = await Astro.request.formData();
-        const name = data.get("name").toString();
-        const email = data.get("email").toString();
-        const message = data.get("message").toString();
+        const name = data.get("name");
+        const email = data.get("email");
+        const message = data.get("message");
         const clientIp = Astro.clientAddress;
         if (name && email && message) {
             await turso.execute({
                 sql: 'INSERT INTO message (name, email, text, ip_address) VALUES (?, ?, ?, ?)',
-                args: [name, email, message, clientIp]
+                args: [name.toString(), email.toString(), message.toString(), clientIp]
             });
         }
     } catch (error) {

@@ -9,5 +9,9 @@ export default defineConfig({
   security: {
     checkOrigin: true
   },
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
 });

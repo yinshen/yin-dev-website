@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+export const prerender = true;
+---
+
+<Layout title="Yin Shen - Full Stack Developer">
+	<main>
+		<div class="text-center">
+			<h1>Yin Shen</h1>
+		</div>
+		<div>
+			<div class="mt-4">
+				I am a Full Stack Web Developer with over 15 years of professional experience.
+				I have worked on projects for some of the largest companies on the ASX.
+				I am based in Melbourne, Australia.
+			</div>
+			<div class="mt-4">Relevant experience:</div>
+			<ul class="mt-4">
+				<li><p>Frontend: React, React-Native, Astro, AngularJS</p></li>
+				<li><p>Backend: Django, NextJS, Postgres, MySQL, SQL Server, MongoDB</p></li>
+				<li><p>DevOps: CI/CD pipelines (AWS, Bitbucket and Codeship)</p></li>
+				<li><p>Infrastructure: AWS, CDK & CloudFormation</p></li>
+			</ul>
+			<div class="my-4 text-center">
+				<button
+					hx-trigger="click from:body, keyup from:body"
+					hx-get="/partials/contact"
+					hx-swap="afterend"
+					hx-target="main"
+					hx-on::before-request="this.setAttribute('hx-disable', '');"
+				>
+					Press any key to continue <span class="blink">_</span>
+				</button>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		max-width: 640px;
+		width: 100%;
+		padding: 16px;
+		margin-top: 10%;
+	}
+
+	h1 {
+		background-color: silver;
+		color: var(--color-primary);
+		padding: 0 1rem;
+		font-size: 1rem;
+		display: inline-block;
+	}
+
+	.link {
+		position: relative;
+		&:hover {
+			cursor: pointer;
+
+			&:before {
+				content: "";
+				position: absolute;
+				left: -1em;
+			}
+		}
+	}
+
+	ul {
+		list-style-type: none;
+		padding-left: 1.5em;
+
+		> li {
+			position: relative;
+
+			&:before {
+				color: #f1f1f1;
+				content: "*";
+				position: absolute;
+				left: -1.5em;
+				font-size:1rem;
+			}
+		}
+	}
+
+	.blink {
+		animation: blink 1s steps(1) infinite;
+	}
+
+	@keyframes blink {
+		66% {
+			opacity: 0;
+		}
+	}
+</style>

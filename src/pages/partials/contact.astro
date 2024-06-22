@@ -1,0 +1,58 @@
+---
+import Popup from '../../components/Popup.astro'
+import { turso } from '../../turso'
+export const partial = true
+export const prerender = false
+
+const isPost = Astro.request.method === 'POST'
+if (isPost) {
+    try {
+        const data = await Astro.request.formData();
+        const name = data.get("name");
+        const email = data.get("email");
+        const message = data.get("message");
+        // get IP address of the client
+        const clientIp = Astro.clientAddress;
+        await turso.execute({
+            sql: 'INSERT INTO message (name, email, text, ip_address) VALUES (?, ?, ?, ?)',
+            args: [name, email, message, clientIp]
+        });
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
+---
+{isPost ? (
+<Popup title="Message sent!">
+    <div class="px-4 w-[280px]">
+        Thank you for your message
+    </div>
+    <div class="text-center px-10 pt-4">
+        <button type="submit" onclick="window.location.reload()">[Ok]</button>
+    </div>
+</Popup>
+) :
+<Popup title="Send me a message">
+    <form hx-post="/partials/contact" hx-target="closest .popup">
+        <div class="px-4 flex flex-col">
+            <label>
+                Name:
+                <input type="text" name="name" class="w-[180px]" required />
+            </label>
+            <label>
+                Email:
+                <input type="email" name="email" class="w-[180px]" required />
+            </label>
+            <label>
+                Message:
+                <textarea name="message" class="w-[180px] ml-2" required />
+            </label>
+        </div>
+        <div class="text-center px-10 pt-4">
+            <button type="submit">[Submit]</button>
+        </div>
+    </form>
+</Popup>
+}

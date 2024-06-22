@@ -37,7 +37,7 @@ if (isPost) {
 </Popup>
 ) :
 <Popup title="Send me a message">
-    <form hx-post="/partials/contact" hx-target="closest .popup">
+    <form hx-post="/partials/contact" hx-target="closest .popup" hx-swap="outerHTML">
         <div class="px-4 flex flex-col">
             <label>
                 Name:

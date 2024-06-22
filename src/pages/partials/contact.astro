@@ -13,10 +13,12 @@ if (isPost) {
         const message = data.get("message");
         // get IP address of the client
         const clientIp = Astro.clientAddress;
-        await turso.execute({
-            sql: 'INSERT INTO message (name, email, text, ip_address) VALUES (?, ?, ?, ?)',
-            args: [name, email, message, clientIp]
-        });
+        if (name && email && message) {
+            await turso.execute({
+                sql: 'INSERT INTO message (name, email, text, ip_address) VALUES (?, ?, ?, ?)',
+                args: [name, email, message, clientIp]
+            });
+        }
     } catch (error) {
         if (error instanceof Error) {
             console.error(error.message);

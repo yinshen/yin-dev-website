@@ -17,6 +17,7 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<script src="https://unpkg.com/htmx.org@2.0.0"></script>
+		<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 	</head>
 	<body>
 	<div class="overlay overlay--scanline"></div>
@@ -39,7 +40,12 @@ const { title } = Astro.props;
 		--color-primary: #00a;
 	}
 
+	html {
+		height: 100%;
+	}
+
 	body {
+		height: 100%;
 		font-family: 'Perfect DOS VGA 437', system-ui, sans-serif;
 		font-size: 1.2em;
 		background-color: var(--color-primary);

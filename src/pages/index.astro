@@ -23,8 +23,9 @@ export const prerender = true;
 			</ul>
 			<div class="my-4 text-center">
 				<button
+					id="press-any-key"
 					hx-trigger="click from:body, keyup from:body"
-					hx-get="/partials/contact"
+					hx-get="/contact"
 					hx-swap="afterend"
 					hx-target="main"
 					hx-on::before-request="this.setAttribute('hx-disable', '');"

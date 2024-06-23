@@ -4,7 +4,8 @@ const { title, disableClose } = Astro.props;
 
 <div
   class="fixed top-0 left-0 w-full h-full flex justify-center items-start popup"
-  data-script={disableClose ? "" : "on click halt the event remove me then remove @hx-disable from #press-any-key"}
+  data-script={disableClose ? "" : "on click halt the event remove me"}
+  hx-trigger="click consume from:html"
 >
   <div
     class="mt-[15%] px-1 py-2 bg-[#ECECEC] modal-shadow min-w-[200px]"

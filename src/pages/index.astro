@@ -1,10 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 export const prerender = true;
-const { title = "Yin Shen - Full Stack Developer", disableAny = false } = Astro.props;
 ---
 
-<Layout title={title}>
+<Layout title="Yin Shen - Full Stack Developer">
   <main>
     <div class="text-center">
       <h1>Yin Shen</h1>
@@ -27,14 +26,12 @@ const { title = "Yin Shen - Full Stack Developer", disableAny = false } = Astro.
       <div class="my-4 text-center">
         <button
           id="press-any-key"
-          hx-trigger="click from:body, keyup from:body"
+          hx-trigger="click consume from:body"
           hx-get="/contact"
           hx-swap="afterend"
           hx-target="main"
-          hx-on::before-request="this.setAttribute('hx-disable', '');"
-		  {...(disableAny ? {['hx-disable']: true} : {})}
         >
-          Press any key to continue <span class="blink">_</span>
+          Click anywhere to continue <span class="blink">_</span>
         </button>
       </div>
     </div>

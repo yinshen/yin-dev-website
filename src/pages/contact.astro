@@ -1,0 +1,13 @@
+---
+import ContactPopup from "../components/ContactForm.astro";
+import Layout from "../layouts/Layout.astro";
+export const prerender = false;
+const partial = Astro.request.headers.get("HX-Request") === "true";
+---
+{partial ? (
+  <ContactPopup />
+) : (
+  <Layout title="Yin Shen - Contact Me">
+    <ContactPopup disableClose />
+  </Layout>
+)}

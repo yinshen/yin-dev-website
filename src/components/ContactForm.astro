@@ -1,0 +1,26 @@
+---
+import Popup from "./Popup.astro";
+const { disableClose = false } = Astro.props;
+---
+
+<Popup title="Send me a message" disableClose={disableClose}>
+  <form hx-post="/api/message" hx-target="closest .popup" hx-swap="outerHTML">
+    <div class="px-4 flex flex-col">
+      <label>
+        Name:
+        <input type="text" name="name" class="w-[180px]" required />
+      </label>
+      <label>
+        Email:
+        <input type="email" name="email" class="w-[180px]" required />
+      </label>
+      <label>
+        Message:
+        <textarea name="message" class="w-[180px] ml-2" required></textarea>
+      </label>
+    </div>
+    <div class="text-center px-10 pt-4">
+      <button type="submit">[Submit]</button>
+    </div>
+  </form>
+</Popup>

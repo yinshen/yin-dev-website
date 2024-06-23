@@ -1,0 +1,44 @@
+---
+import Popup from "../../components/Popup.astro";
+import { turso } from "../../turso";
+export const partial = true;
+export const prerender = false;
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    const email = data.get("email");
+    const message = data.get("message");
+    const clientIp = Astro.clientAddress;
+    if (name && email && message) {
+      await turso.execute({
+        sql: "INSERT INTO message (name, email, text, ip_address) VALUES (?, ?, ?, ?)",
+        args: [name.toString(), email.toString(), message.toString(), clientIp],
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return new Response("Internal server error", {
+        status: 500,
+      });
+    }
+  }
+} else {
+  return new Response("Method not allowed", {
+    status: 405,
+  });
+}
+---
+
+<Popup title="Message sent!">
+  <div class="px-4 w-[280px]">Thank you for your message</div>
+  <div class="text-center px-10 pt-4">
+    <button type="submit" onclick="
+    window.location.reload()
+    "
+      >[Ok]</button
+    >
+  </div>
+</Popup>

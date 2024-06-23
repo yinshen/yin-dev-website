@@ -1,38 +1,43 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 export const prerender = true;
+const { title = "Yin Shen - Full Stack Developer", disableAny = false } = Astro.props;
 ---
 
-<Layout title="Yin Shen - Full Stack Developer">
-	<main>
-		<div class="text-center">
-			<h1>Yin Shen</h1>
-		</div>
-		<div>
-			<div class="mt-4">
-				I am a Full Stack Web Developer with over 15 years of professional experience.
-				I have worked on projects for some of the largest companies on the ASX.
-				I am based in Melbourne, Australia.
-			</div>
-			<div class="mt-4">Relevant experience:</div>
-			<ul class="mt-4">
-				<li><p>Frontend: React, React-Native, Astro, AngularJS</p></li>
-				<li><p>Backend: Django, NextJS, Postgres, MySQL, SQL Server, MongoDB</p></li>
-				<li><p>DevOps: CI/CD pipelines (AWS, Bitbucket and Codeship)</p></li>
-				<li><p>Infrastructure: AWS, CDK & CloudFormation</p></li>
-			</ul>
-			<div class="my-4 text-center">
-				<button
-					id="press-any-key"
-					hx-trigger="click from:body, keyup from:body"
-					hx-get="/contact"
-					hx-swap="afterend"
-					hx-target="main"
-					hx-on::before-request="this.setAttribute('hx-disable', '');"
-				>
-					Press any key to continue <span class="blink">_</span>
-				</button>
-			</div>
-		</div>
-	</main>
+<Layout title={title}>
+  <main>
+    <div class="text-center">
+      <h1>Yin Shen</h1>
+    </div>
+    <div>
+      <div class="mt-4">
+        I am a Full Stack Web Developer with over 15 years of professional
+        experience. I have worked on projects for some of the largest companies
+        on the ASX. I am based in Melbourne, Australia.
+      </div>
+      <div class="mt-4">Relevant experience:</div>
+      <ul class="mt-4">
+        <li><p>Frontend: React, React-Native, Astro, AngularJS</p></li>
+        <li>
+          <p>Backend: Django, NextJS, Postgres, MySQL, SQL Server, MongoDB</p>
+        </li>
+        <li><p>DevOps: CI/CD pipelines (AWS, Bitbucket and Codeship)</p></li>
+        <li><p>Infrastructure: AWS, CDK & CloudFormation</p></li>
+      </ul>
+      <div class="my-4 text-center">
+        <button
+          id="press-any-key"
+          hx-trigger="click from:body, keyup from:body"
+          hx-get="/contact"
+          hx-swap="afterend"
+          hx-target="main"
+          hx-on::before-request="this.setAttribute('hx-disable', '');"
+		  {...(disableAny ? {['hx-disable']: true} : {})}
+        >
+          Press any key to continue <span class="blink">_</span>
+        </button>
+      </div>
+    </div>
+  </main>
+  <slot />
 </Layout>
